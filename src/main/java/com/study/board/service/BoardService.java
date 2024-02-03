@@ -54,7 +54,7 @@ public class BoardService {
             byte[] fileBytes = file.getBytes();
             return Base64.getEncoder().encodeToString(fileBytes);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("이미지 로딩 실패 ㅠㅠ");
             return null;
         }
     }
