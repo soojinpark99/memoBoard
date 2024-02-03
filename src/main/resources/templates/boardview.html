@@ -10,6 +10,7 @@
 <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
 <a th:href="@{/board/downloadImage/${fileName}}">이미지 다운로드</a>
 <a th:href="@{/board/modify/{id}(id = ${board.id})}">수정</a>
+<a th:href="@{/board/delete(id= ${board.id})}">삭제</a>
 
 
 
