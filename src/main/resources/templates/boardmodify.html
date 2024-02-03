@@ -6,37 +6,92 @@
 </head>
 
 <style>
-    .layout {
-        width : 500px;
-        margin : 0 auto;
-        margin-top: 40px;
-    }
-
-    .layout input {
-        width: 100%;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
     }
 
-    .layout textarea {
+    .layout {
+        width: 300px;
+        margin: 30px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"] {
         width: 100%;
+        height: 25px;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .comments-div {
         margin-top: 10px;
-        min-height: 300px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 200px;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: none;
+    }
+
+    .btn-div {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
     }
 </style>
 
 <body>
 <div class="layout">
     <form th:action="@{/board/update/{id}(id = ${board.id})}" method="post" enctype="multipart/form-data">
-        <label>
+        <label></label>
             <input name="title" type="text" th:value="${board.title}">
-        </label>
+        <div class="comments-div">
         <label>
             <textarea name="content" th:text="${board.content}"></textarea>
         </label>
+        </div>
         <label>
             <input name="file" type="file">
         </label>
+        <div class="btn-div">
         <button type="submit">수정</button>
+        </div>
     </form>
 </div>
 </body>
