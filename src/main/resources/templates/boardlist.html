@@ -115,7 +115,7 @@
         searchKeyword = ${param.searchKeyword})}"
             th:text="${page}"
     ></a>
-    <strong th:if="${page == nowPage}" style="color: red"></strong>
+    <strong th:if="${page == nowPage}" th:text="${page}" style="color: red"></strong>
   </th:block>
   <form class="search" th:action="@{/board/list}" method="get">
     <label>
