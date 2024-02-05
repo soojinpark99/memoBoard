@@ -55,7 +55,7 @@ public class Boardcontroller {
             list = boardService.boardSearchList(searchKeyword, pageable); //검색 단어 입력 : 검색 기능이 포함된 리스트를 출력
         }
 
-        int nowPage = list.getPageable().getPageNumber() + 1; //Pageable에서 넘어온 현재 페이지. 시작값이 0이라 1을 더함.
+        int nowPage = list.getPageable().getPageNumber()+1; //Pageable에서 넘어온 현재 페이지. 시작값이 0이라 1을 더함.
         int startPage = Math.max(nowPage - 4, 1); //블럭에서 보여줄 시작 페이지. Math.max로 페이지번호가 음수가 되는 오류 수정.
         int endPage = Math.min(nowPage + 5, list.getTotalPages()); //블럭에서 보여줄 마지막 페이지. Math.min으로 페이지번호가 전체 페이지수보다 클 경우 totalpages를 반환.
 
