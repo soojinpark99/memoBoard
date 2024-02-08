@@ -90,52 +90,40 @@
     </style>
   </head>
   <body>
-    <form action="/board/writepro" method="post" enctype="multipart/form-data">
-      <div class="layout">
-        <div class="title-div">
-          <label for="title">제목</label>
-          <div>
-            <input
-              name="title"
-              type="text"
-              id="title"
-              placeholder="제목을 입력하세요."
-            />
-          </div>
+    <div class="layout">
+      <div class="title-div">
+        <label for="title">제목</label>
+        <div>
+          <input type="text" id="title" placeholder="제목을 입력하세요." />
         </div>
-        <div class="comments-div">
-          <label for="comments">내용</label>
-          <div>
-            <textarea
-              name="content"
-              placeholder="내용을 입력하세요."
-              id="comments"
-            ></textarea>
-          </div>
+      </div>
+      <div class="comments-div">
+        <label for="comments">내용</label>
+        <div>
+          <textarea placeholder="내용을 입력하세요." id="comments"></textarea>
         </div>
-        <input class="file" type="file" name="file" />
-        <div class="btn-div">
-          <button type="submit">저장하기</button>
-          <button class="list-btn" type="button">게시글 목록</button>
-        </div>
-        <div class="post-list" id="postList">
-          <div class="post-item">
-            <h3>게시글 제목 1</h3>
-            <p>게시글 내용 1</p>
-            <div class="post-actions">
-              <button class="edit-btn" onclick="editPost(1)">수정</button>
-              <button class="delete-btn" onclick="deletePost(1)">삭제</button>
-            </div>
+      </div>
+      <div class="btn-div">
+        <button type="submit">저장하기</button>
+        <button class="list-btn" type="button">게시글 목록</button>
+      </div>
+      <div class="post-list" id="postList">
+        <div class="post-item">
+          <h3>게시글 제목 1</h3>
+          <p>게시글 내용 1</p>
+          <div class="post-actions">
+            <button class="edit-btn" onclick="editPost(1)">수정</button>
+            <button class="delete-btn" onclick="deletePost(1)">삭제</button>
           </div>
         </div>
       </div>
-    </form>
-
+    </div>
     <script>
       // 게시글 저장 함수
       async function savePost() {
         const title = document.getElementById("title").value;
         const comments = document.getElementById("comments").value;
+
         // 서버로 데이터 전송
         const response = await fetch("/submit", {
           method: "POST",
