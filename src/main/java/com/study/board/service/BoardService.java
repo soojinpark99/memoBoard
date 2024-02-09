@@ -49,26 +49,20 @@ public class BoardService {
     }
 
     //이미지를 이진 변환
-    public String encodeFileToBase64(Board board) {
-        String base64Img = "";
-
-        File f = new File(board.getFilepath());
-        if (f.exists() && f.isFile() && f.length() > 0) {
-            byte[] bt = new byte[(int) f.length()];
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(f);
-                fis.read(bt);
-                base64Img = new String(Base64.getEncoder().encode(bt));
-            }catch(Exception e) {e.printStackTrace();
-            }finally {
-                try{
-                    if(fis !=null) fis.close();
-                } catch(IOException e) {}
+    public String encodeFileToBase64(MultipartFile file) {
+        try {
+            byte[] fileBytes = file.getBytes();
+            return Base64.getEncoder().encodeToString(fileBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
-    }return base64Img;
     }
-
+/*
+    public String decodeBase64toFile(String encodeFileToBase64, MultipartFile file) {
+        encodeFileToBase64 = this.encodeFileToBase64(file);
+    }
+*/
 
 
     //게시글 리스트 처리
