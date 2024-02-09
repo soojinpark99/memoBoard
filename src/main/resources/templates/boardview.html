@@ -1,88 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-      .layout {
-        width: 300px;
-        margin: 30px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
+        .layout {
+            width: 300px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-      .title {
-        font-size: 20px;
-      }
+        .title {
+            font-size: 20px;
+        }
 
-      .comments {
-        font-size: 15px;
-        height: 300px;
-        padding: 15px 0;
-        margin: 0;
-      }
+        .comments {
+            font-size: 15px;
+            height: 300px;
+            padding: 15px 0;
+            margin: 0;
+        }
 
-      .download {
-        cursor: pointer;
-        font-size: 14px;
-        display: inline;
-      }
+        .delete-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            background-color: #4caf50;
+            font-size: 15px;
+            color: #fff;
+            margin: 0 auto;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-      .download > img {
-        width: 13px;
-      }
-
-      .btns {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        margin-top: 10px;
-      }
-
-      .btn {
-        width: 30px;
-        background-color: #4caf50;
-        font-size: 15px;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .btn:hover {
-        background-color: #45a049;
-      }
+        .delete-btn:hover {
+            background-color: #45a049;
+        }
     </style>
-  </head>
-  <body>
-    <div class="layout">
-      <h1 th:text="${board.title}" class="title">제목입니다.</h1>
-      <p th:text="${board.content}" class="coments">
-        내용이 들어갈 부분입니다.
-      </p>
-      <div class="download">
-        <a th:href="@{/board/downloadImage/${fileName}}">이미지 다운로드</a>
-        <img src="./download.svg" />
-      </div>
+</head>
+<body>
+<div class="layout">
+    <h1 th:text="${board.title}" class="title">제목입니다.</h1>
+    <p th:text="${board.content}" class="coments">내용이 들어갈 부분입니다.</p>
+    <p><img th:src="@{/static/files/}+${fileName}" alt="x"/></p>
+    <a th:href="@{/board/downloadImage/${board.filename}}">이미지 다운로드</a>
+    <a th:href ="@{${board.filepath}}">이미지 ㄹㅇ 다운로드</a>
+    <a th:href="@{/board/modify/{id}(id = ${board.id})}">수정</a>
+    <a th:href="@{/board/delete(id= ${board.id})}" class="delete-btn">삭제</a>
 
-      <div class="btns">
-        <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"
-          >수정</a
-        >
-        <a th:href="@{/board/delete(id= ${board.id})}" class="delete btn"
-          >삭제</a
-        >
-      </div>
-    </div>
-  </body>
+</div>
+
+</body>
 </html>
