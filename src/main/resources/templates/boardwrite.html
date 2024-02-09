@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -111,7 +111,7 @@
         <input class="file" type="file" name="file" />
         <div class="btn-div">
           <button type="submit">저장하기</button>
-          <button class="list-btn" type="button">게시글 목록</button>
+          <a th:href="@{/board/list}" class="list-btn">게시글 목록</a>
         </div>
       </div>
     </form>

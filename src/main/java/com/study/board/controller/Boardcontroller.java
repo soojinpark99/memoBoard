@@ -110,6 +110,7 @@ public class Boardcontroller {
         model.addAttribute("originalPage","/board/list");
         return "savemessage";
     }
+
 /*
     //(임의추가) 이미지 화면에 출력
     @ResponseBody

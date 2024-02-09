@@ -16,4 +16,8 @@ public class Board {
     private String title;
     private String content;
     private String filename;
-    private String filepath;}
+    private String filepath;
+
+    @Lob
+    private byte[] mediaData;
+}
