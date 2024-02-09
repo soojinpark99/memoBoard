@@ -28,6 +28,30 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
+    .write-btn_div {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .write-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 60px;
+      height: 35px;
+      color: #333333;
+      font-size: 13px;
+      border: solid 1.3px #d3d3d3;
+
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .write-btn:hover {
+      background-color: #f9f9f9;
+    }
+
     table {
       width: 100%;
       color: #4e4e4e;
@@ -98,7 +122,7 @@
       height: 30px;
     }
 
-    .btn {
+    .submit-btn {
       width: 40px;
       height: 30px;
       background-color: #4caf50;
@@ -108,20 +132,15 @@
       cursor: pointer;
     }
 
-    .write.btn {
-      font-size: 13px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-decoration: none;
-    }
-
-    .btn:hover {
+    .submit-btn:hover {
       background-color: #45a049;
     }
   </style>
   <body>
     <div class="layout">
+      <div class="write-btn_div">
+        <a class="write-btn" th:href="@{/board/write}">글쓰기</a>
+      </div>
       <table>
         <thead>
           <tr>
@@ -171,8 +190,7 @@
             placeholder="검색어를 입력하세요."
           />
         </label>
-        <button class="submit btn" type="submit">검색</button>
-        <a class="write btn" th:href="@{/board/write}">글쓰기</a>
+        <button class="submit-btn" type="submit">검색</button>
       </form>
     </div>
   </body>
