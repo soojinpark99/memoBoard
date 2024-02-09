@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,7 +42,6 @@ public class BoardService {
         File saveFile = new File(projectPath,fileName);
 
         file.transferTo(saveFile);
-
         board.setFilename(fileName);
         board.setFilepath("/files/" + fileName);
         boardRepository.save(board);
@@ -49,15 +49,27 @@ public class BoardService {
     }
 
     //이미지를 이진 변환
-    public String encodeFileToBase64(MultipartFile file) {
-        try {
-            byte[] fileBytes = file.getBytes();
-            return Base64.getEncoder().encodeToString(fileBytes);
-        } catch (IOException e) {
-            System.out.println("이미지 로딩 실패 ㅠㅠ");
-            return null;
+    public String encodeFileToBase64(Board board) {
+        String base64Img = "";
+
+        File f = new File(board.getFilepath());
+        if (f.exists() && f.isFile() && f.length() > 0) {
+            byte[] bt = new byte[(int) f.length()];
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(f);
+                fis.read(bt);
+                base64Img = new String(Base64.getEncoder().encode(bt));
+            }catch(Exception e) {e.printStackTrace();
+            }finally {
+                try{
+                    if(fis !=null) fis.close();
+                } catch(IOException e) {}
         }
+    }return base64Img;
     }
+
+
 
     //게시글 리스트 처리
     public Page<Board> boardList(Pageable pageable) {

@@ -2,7 +2,9 @@ package com.study.board.controller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.net.MalformedURLException;
 
 @Controller
 
@@ -98,12 +102,24 @@ public class Boardcontroller {
     }
     //(임의 추가) 이미지 다운로드
     @GetMapping("/board/downloadImage/{fileName}")
-    public String downloadImage(Model model,MultipartFile file, String fileName) throws Exception {
+    public String downloadImage(Model model,MultipartFile file, @PathVariable String fileName) throws Exception {
+
+        UrlResource resource = new UrlResource("file:"+"/src/main/resources/static/files"+fileName);
 
         model.addAttribute("savemessage","저장이 완료되었습니다.");
         model.addAttribute("originalPage","/board/list");
         return "savemessage";
     }
+/*
+    //(임의추가) 이미지 화면에 출력
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource showImage(MultipartFile file, @PathVariable String filename) throws
+            Exception {
+        return new UrlResource("file:" + file.getFullPath(filename));
+    }
+
+ */
 
     @GetMapping("/board/delete")
     public String boardDelete(Integer id) {
