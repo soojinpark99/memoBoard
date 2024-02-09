@@ -70,7 +70,9 @@
       <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
       <a class="download" th:href="@{/board/downloadImage/${fileName}}">
         이미지 다운로드
-        <img src="./download-icon.png" />
+        <img
+          src="https://github.com/soojinpark99/memoBoard/assets/154590790/58fe0995-0567-4671-9831-91f7a19a659b"
+        />
       </a>
       <div class="btns">
         <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"
