@@ -48,6 +48,12 @@ public class BoardService {
 
     }
 
+    //(임의추가)이미지 사용자 컴퓨터에 저장
+    public void UserImgSave(Board board, MultipartFile file) throws Exception {
+        String userPath = System.getProperty("user.home");
+
+    }
+
     //이미지를 이진 변환
     public String encodeFileToBase64(MultipartFile file) {
         try {
