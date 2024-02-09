@@ -84,6 +84,10 @@
       width: 15px;
     }
 
+    .write-btn > img {
+      width: 15px;
+    }
+
     .write-btn:hover {
       background-color: #f9f9f9;
     }
@@ -179,10 +183,24 @@
       bottom: 10px;
       left: 10px;
     }
+
+    .copyright {
+      color: #d3d3d3;
+      text-decoration: none;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
   </style>
   <body>
     <div class="layout">
       <div class="write-btn_div">
+        <a class="write-btn" th:href="@{/board/write}">
+          <img
+            src="https://github.com/soojinpark99/memoBoard/assets/154590790/fca6f8d0-dfee-4dfd-a4eb-006604b9b3d2"
+          />
+          글쓰기</a
+        >
         <a class="write-btn" th:href="@{/board/write}">
           <img
             src="https://github.com/soojinpark99/memoBoard/assets/154590790/fca6f8d0-dfee-4dfd-a4eb-006604b9b3d2"
@@ -242,6 +260,12 @@
         <button class="submit-btn" type="submit">검색</button>
       </form>
     </div>
+    <a
+      class="copyright"
+      href="https://www.flaticon.com/kr/free-icons/"
+      title="연필 아이콘"
+      >연필 아이콘 제작자: Pixel perfect - Flaticon</a
+    >
     <a
       class="copyright"
       href="https://www.flaticon.com/kr/free-icons/"
