@@ -1,170 +1,170 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>게시글 리스트 페이지</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>게시글 리스트 페이지</title>
+</head>
 
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 15px;
-      background-color: #f4f4f4;
-    }
-    .layout {
-      width: 340px;
-      margin: 30px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    background-color: #f4f4f4;
+  }
+  .layout {
+    width: 340px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
-    table {
-      width: 100%;
-      color: #4e4e4e;
-    }
+  table {
+    width: 100%;
+    color: #4e4e4e;
+  }
 
-    thead > tr {
-      border-bottom: 1px solid #999999;
-      padding: 10px;
-    }
+  thead > tr {
+    border-bottom: 1px solid #999999;
+    padding: 10px;
+  }
 
-    tbody > tr {
-      border-bottom: 1px solid #f2f2f2;
-      padding: 7px;
-    }
+  tbody > tr {
+    border-bottom: 1px solid #f2f2f2;
+    padding: 7px;
+  }
 
-    tr {
-      display: flex;
-      gap: 10px;
-    }
+  tr {
+    display: flex;
+    gap: 10px;
+  }
 
-    .number {
-      width: 40px;
-      text-align: center;
-    }
+  .number {
+    width: 40px;
+    text-align: center;
+  }
 
-    .title {
-      width: 100%;
-    }
+  .title {
+    width: 100%;
+  }
 
-    .body.title > a {
-      cursor: pointer;
-    }
+  .body.title > a {
+    cursor: pointer;
+  }
 
-    .body.title > a:hover {
-      text-decoration: underline;
-    }
+  .body.title > a:hover {
+    text-decoration: underline;
+  }
 
 
-    .page-block {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
+  .page-block {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
 
-    .page-block_num {
-      color: #5f6367;
-      cursor: pointer;
-    }
+  .page-block_num {
+    color: #5f6367;
+    cursor: pointer;
+  }
 
-    .page-block_num:hover{
-      text-decoration: underline;
-    }
+  .page-block_num:hover{
+    text-decoration: underline;
+  }
 
-    .search {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      margin-top: 10px;
-    }
+  .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
 
-    .search input {
-      padding: 3px;
-      width: 200px;
-      height: 30px;
-    }
+  .search input {
+    padding: 3px;
+    width: 200px;
+    height: 30px;
+  }
 
-    .search button {
-      width: 40px;
-      height: 30px;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  .search button {
+    width: 40px;
+    height: 30px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
-  <body>
-    <div class="layout">
-      <table>
-        <thead>
-          <tr>
-            <th class="head number">번호</th>
-            <th class="head title">제목</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">1</td>
-            <td class="body title">
-              <a
+  button:hover {
+    background-color: #45a049;
+  }
+</style>
+<body>
+<div class="layout">
+  <table>
+    <thead>
+    <tr>
+      <th class="head number">번호</th>
+      <th class="head title">제목</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board : ${list}">
+      <td class="body number" th:text="${board.id}">1</td>
+      <td class="body title">
+        <a
                 th:text="${board.title}"
                 th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="page-block">
-      <th:block
-        th:each="page : ${#numbers.sequence(startPage, endPage)}"
-      >
-        <a class = "page-block_num"
-          th:if="${page != nowPage}"
-          th:href="@{/board/list(page = ${page - 1},
+        >제목입니다</a
+        >
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="page-block">
+    <th:block
+            th:each="page : ${#numbers.sequence(startPage, endPage)}"
+    >
+      <a class = "page-block_num"
+         th:if="${page != nowPage}"
+         th:href="@{/board/list(page = ${page - 1},
         searchKeyword = ${param.searchKeyword})}"
-          th:text="${page}"
-        ></a>
-        <strong
-          th:if="${page == nowPage}"
-          th:text="${page}"
-          style="text-decoration: underline"
-        ></strong>
-      </th:block>
-      </div>
-      <form
-        class="search"
-        autocomplete="off"
-        th:action="@{/board/list}"
-        method="get"
-      >
-        <label>
-          <input
-            type="text"
-            name="searchKeyword"
-            placeholder="검색어를 입력하세요."
-          />
-        </label>
-        <button type="submit">검색</button>
-        <a th:href="@{/board/write}">새 글 쓰기</a>
-      </form>
-    </div>
-  </body>
+         th:text="${page}"
+      ></a>
+      <strong
+              th:if="${page == nowPage}"
+              th:text="${page}"
+              style="text-decoration: underline"
+      ></strong>
+    </th:block>
+  </div>
+  <form
+          class="search"
+          autocomplete="off"
+          th:action="@{/board/list}"
+          method="get"
+  >
+    <label>
+      <input
+              type="text"
+              name="searchKeyword"
+              placeholder="검색어를 입력하세요."
+      />
+    </label>
+    <button type="submit">검색</button>
+    <a th:href="@{/board/write}">새 글 쓰기</a>
+  </form>
+</div>
+</body>
 </html>
