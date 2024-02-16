@@ -33,14 +33,12 @@ public class BoardService {
 
     //글 작성 처리
     public void write(Board board){
-
         boardRepository.save(board);
-
     }
 
     public void saveImg(Board board, MultipartFile file) throws Exception {
         String projectPath = System.getProperty("user.dir") + "/src/main/webapp/files";
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 파일 이름을 랜덤으로 생성
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename(); // 파일 이름을 랜덤으로 생성
         String filePath = Paths.get(projectPath, fileName).toString(); // 파일 경로 설정
 
         // 이미지 파일을 디스크에 저장
@@ -52,7 +50,6 @@ public class BoardService {
         boardRepository.save(board);
 
     }
-
 
     //게시글 리스트 처리
     public Page<Board> boardList(Pageable pageable) {

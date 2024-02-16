@@ -23,7 +23,7 @@ public class Board {
     private String filepath;
 
     @Lob
-    @Column(name = "mediaData", columnDefinition="BLOB")
+    @Column(name = "mediaData", columnDefinition="LONGBLOB")
     private byte[] mediaData;
     public void setMediaData(MultipartFile file) {
         try {

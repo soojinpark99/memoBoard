@@ -44,8 +44,7 @@ public class Boardcontroller {
             model.addAttribute("searchUrl", "/board/list");
             return "message";
         } catch (Exception e) {
-            // 예외 처리
-            model.addAttribute("error", "글 작성 중 오류가 발생했습니다.");
+            model.addAttribute("error", "[ERROR] : 글 작성에 실패했습니다. 이미지 파일 형식이 올바르지 않을 수도 있습니다.");
             return "error";
         }
 
@@ -86,7 +85,6 @@ public class Boardcontroller {
         boardTemp.setContent(board.getContent());
 
         boardService.write(boardTemp);
-     //   boardService.saveImg(boardTemp, file); //임의 추가
 
         return "redirect:/board/list";
 
@@ -95,9 +93,7 @@ public class Boardcontroller {
     @GetMapping("/board/modify/{id}")
     public String boardModify(@PathVariable("id") Integer id,
                               Model model) {
-
         model.addAttribute("board",boardService.boardView(id));
-
         return "boardmodify";
     }
 
@@ -111,18 +107,6 @@ public class Boardcontroller {
         model.addAttribute("board", board);
         model.addAttribute("base64Image", base64Image);
         return "boardview";
-    }
-
-    @GetMapping("/board/image/{id}")
-    @ResponseBody
-    public ResponseEntity<byte[]> getImage(@PathVariable("id") Integer id) {
-        Board board = boardService.boardView(id);
-        if (board == null || board.getMediaData() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(board.getMediaData());
     }
 
     @GetMapping("/board/delete")
