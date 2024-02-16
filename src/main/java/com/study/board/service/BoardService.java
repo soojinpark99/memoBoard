@@ -3,19 +3,25 @@ package com.study.board.service;
 import com.study.board.BoardApplication;
 import com.study.board.entity.Board;
 import com.study.board.repository.BoardRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.antlr.v4.runtime.tree.pattern.ParseTreePattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -33,42 +39,19 @@ public class BoardService {
     }
 
     public void saveImg(Board board, MultipartFile file) throws Exception {
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+        String projectPath = System.getProperty("user.dir") + "/src/main/webapp/files";
+        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 파일 이름을 랜덤으로 생성
+        String filePath = Paths.get(projectPath, fileName).toString(); // 파일 경로 설정
 
-        UUID uuid = UUID.randomUUID();
+        // 이미지 파일을 디스크에 저장
+        Files.copy(file.getInputStream(), Paths.get(projectPath).resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
 
-        String fileName = uuid + "_" + file.getOriginalFilename();
-
-        File saveFile = new File(projectPath,fileName);
-
-        file.transferTo(saveFile);
+        // 엔티티에 파일 이름과 경로 설정
         board.setFilename(fileName);
         board.setFilepath("/files/" + fileName);
         boardRepository.save(board);
 
     }
-
-    //(임의추가)이미지 사용자 컴퓨터에 저장
-    public void UserImgSave(Board board, MultipartFile file) throws Exception {
-        String userPath = System.getProperty("user.home");
-
-    }
-
-    //이미지를 이진 변환
-    public String encodeFileToBase64(MultipartFile file) {
-        try {
-            byte[] fileBytes = file.getBytes();
-            return Base64.getEncoder().encodeToString(fileBytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-/*
-    public String decodeBase64toFile(String encodeFileToBase64, MultipartFile file) {
-        encodeFileToBase64 = this.encodeFileToBase64(file);
-    }
-*/
 
 
     //게시글 리스트 처리

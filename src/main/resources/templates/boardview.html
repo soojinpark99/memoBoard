@@ -70,10 +70,10 @@
       <p th:text="${board.content}" class="coments">
         내용이 들어갈 부분입니다.
       </p>
-      <div class="download">
-        <a th:href="@{/board/downloadImage/${fileName}}">이미지 다운로드</a>
-        <img src="./download.svg" />
-      </div>
+      <img th:src="'data:image/jpeg;base64,' + ${base64Image}"
+           alt="이미지"
+          width="300"
+          height="300"/>
 
       <div class="btns">
         <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"

@@ -5,6 +5,10 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+
 @Entity
 @Data
 public class Board {
@@ -19,5 +23,14 @@ public class Board {
     private String filepath;
 
     @Lob
+    @Column(name = "mediaData", columnDefinition="BLOB")
     private byte[] mediaData;
+    public void setMediaData(MultipartFile file) {
+        try {
+            this.mediaData = file.getBytes(); // 이미지 파일을 byte 배열로 변환하여 저장
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
