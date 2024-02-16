@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시글 작성 페이지</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
       }
 
       .layout {
@@ -61,7 +63,7 @@
         margin-top: 20px;
       }
 
-      button {
+      .btn {
         background-color: #4caf50;
         color: #fff;
         padding: 10px 15px;
@@ -70,16 +72,19 @@
         cursor: pointer;
       }
 
-      button:hover {
+      .submit.btn:hover {
         background-color: #45a049;
       }
 
-      .list-btn {
+      .list.btn {
         background-color: #2196f3;
         margin-left: auto;
+        font-size: 13px;
+        width: 60px;
+        text-decoration: none;
       }
 
-      .list-btn:hover {
+      .list.btn:hover {
         background-color: #0b7dda;
       }
     </style>
@@ -110,8 +115,8 @@
         </div>
         <input class="file" type="file" name="file" />
         <div class="btn-div">
-          <button type="submit">저장하기</button>
-          <a th:href="@{/board/list}" class="list-btn">게시글 목록</a>
+          <button type="submit" class="submit btn">저장하기</button>
+          <a th:href="@{/board/list}" class="list btn">게시글 목록</a>
         </div>
       </div>
     </form>
