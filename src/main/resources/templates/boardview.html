@@ -76,12 +76,10 @@
       <p th:text="${board.content}" class="coments">
         내용이 들어갈 부분입니다.
       </p>
-      <img th:src="'data:image/jpeg;base64,' + ${base64Image}"
+      <img th:if="${base64Image!=null}" th:src="'data:image;base64,' + ${base64Image}"
            alt="이미지"
           width="300"
           height="300"/>
-
-      <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
       <div class="btns">
         <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"
           >수정</a
