@@ -205,6 +205,7 @@
         <label>
           <input
             type="text"
+            class="search-input"
             name="searchKeyword"
             placeholder="검색어를 입력하세요."
           />
@@ -219,4 +220,17 @@
       >연필 아이콘 제작자: Pixel perfect - Flaticon</a
     >
   </body>
+  <script>
+    function searchInputValidation(e) {
+      const searchInput = document.querySelector(".search-input");
+      if (searchInput.value.trim() === "") {
+        e.preventDefault();
+        alert("검색어를 입력하세요");
+        searchInput = "";
+      }
+    }
+
+    const form = document.querySelector(".search");
+    form.addEventListener("submit", searchInputValidation);
+  </script>
 </html>
