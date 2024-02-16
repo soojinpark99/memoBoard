@@ -23,6 +23,12 @@
       .title {
         font-size: 20px;
       }
+      .comments {
+        font-size: 15px;
+        height: 300px;
+        padding: 15px 0;
+        margin: 0;
+      }
 
       .download {
         cursor: pointer;
@@ -68,13 +74,16 @@
   <body>
     <div class="layout">
       <h1 th:text="${board.title}" class="title">제목입니다.</h1>
+      <p th:text="${board.content}" class="coments">
+        내용이 들어갈 부분입니다.
+      </p>
+      <img
+        th:src="'data:image/jpeg;base64,' + ${base64Image}"
+        alt="이미지"
+        width="300"
+        height="300"
+      />
       <p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
-      <a class="download" th:href="@{/board/downloadImage/${fileName}}">
-        이미지 다운로드
-        <img
-          src="https://github.com/soojinpark99/memoBoard/assets/154590790/58fe0995-0567-4671-9831-91f7a19a659b"
-        />
-      </a>
       <div class="btns">
         <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"
           >수정</a

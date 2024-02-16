@@ -4,17 +4,19 @@ import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Base64;
 
-import java.net.MalformedURLException;
 
 @Controller
 
@@ -24,23 +26,28 @@ public class Boardcontroller {
 
     @GetMapping("/board/write")//localhost:8080/board/write
     public String boardWriteForm() {
-
         return "boardwrite";
-
     }
 
-
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception {
+    public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) {
 
-        boardService.write(board);
-        boardService.saveImg(board,file);
+        try {
+            // 이미지 파일을 byte 배열로 변환하여 엔티티에 저장
+            board.setMediaData(file);
+            boardService.write(board);
+            boardService.saveImg(board,file);
+            // 게시글과 이미지 정보를 저장
+            boardService.write(board);
 
-        model.addAttribute("message", "글 작성이 완료되었습니다.");
-        model.addAttribute("searchUrl", "/board/list");
-        model.addAttribute("file","file");
-
-        return "message";
+            model.addAttribute("message", "글 작성이 완료되었습니다.");
+            model.addAttribute("searchUrl", "/board/list");
+            return "message";
+        } catch (Exception e) {
+            // 예외 처리
+            model.addAttribute("error", "글 작성 중 오류가 발생했습니다.");
+            return "error";
+        }
 
     }
 
@@ -49,7 +56,7 @@ public class Boardcontroller {
     public String boardList(Model model,
                             @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC)
                             Pageable pageable, String searchKeyword)
-    //디폴트 페이지:0, 한 페이지당 게시글 수:10개, 정렬 기준 방식: id, 정렬 순서:역순///////rty
+    //디폴트 페이지:0, 한 페이지당 게시글 수:10개, 정렬 기준 방식: id, 정렬 순서:역순
     {
         Page<Board> list = null;
 
@@ -79,7 +86,7 @@ public class Boardcontroller {
         boardTemp.setContent(board.getContent());
 
         boardService.write(boardTemp);
-        boardService.saveImg(boardTemp, file); //임의 추가
+     //   boardService.saveImg(boardTemp, file); //임의 추가
 
         return "redirect:/board/list";
 
@@ -96,31 +103,27 @@ public class Boardcontroller {
 
     @GetMapping("/board/view") // localhost:8080/board/view?id=1
     public String boardView(Model model, Integer id){
-        model.addAttribute("board", boardService.boardView(id));
-
+        Board board = boardService.boardView(id);
+        String base64Image = null;
+        if (board.getMediaData() != null) {
+            base64Image = Base64.getEncoder().encodeToString(board.getMediaData());
+        }
+        model.addAttribute("board", board);
+        model.addAttribute("base64Image", base64Image);
         return "boardview";
     }
-    //(임의 추가) 이미지 다운로드
-    @GetMapping("/board/downloadImage/{fileName}")
-    public String downloadImage(Model model,MultipartFile file, @PathVariable String fileName) throws Exception {
 
-        UrlResource resource = new UrlResource("file:"+"/src/main/resources/static/files"+fileName);
-
-        model.addAttribute("savemessage","저장이 완료되었습니다.");
-        model.addAttribute("originalPage","/board/list");
-        return "savemessage";
-    }
-
-/*
-    //(임의추가) 이미지 화면에 출력
+    @GetMapping("/board/image/{id}")
     @ResponseBody
-    @GetMapping("/images/{filename}")
-    public Resource showImage(MultipartFile file, @PathVariable String filename) throws
-            Exception {
-        return new UrlResource("file:" + file.getFullPath(filename));
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") Integer id) {
+        Board board = boardService.boardView(id);
+        if (board == null || board.getMediaData() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(board.getMediaData());
     }
-
- */
 
     @GetMapping("/board/delete")
     public String boardDelete(Integer id) {
