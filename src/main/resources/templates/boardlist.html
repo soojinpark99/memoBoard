@@ -271,11 +271,11 @@
 
     function overwriteNumbers() {
       const numbers = document.querySelectorAll(".body.number");
-      const pageBlocks = document.querySelectorAll(".page-block_num");
+      const lastPage = [[${lastPage}]]
       const nowPage = [[${nowPage}]]
 
       for (let i = 1; i <= numbers.length; i++) {
-        numbers[numbers.length - i].innerText = i + (pageBlocks.length - nowPage) * 10;
+        numbers[numbers.length - i].innerText = i + (lastPage - nowPage) * 10;
       }
     }
 
