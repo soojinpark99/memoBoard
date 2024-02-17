@@ -209,7 +209,27 @@
         </thead>
         <tbody>
           <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">1</td>
+            <td class="body number" th:text="${board.id}">3</td>
+            <td class="body title">
+              <a
+                th:text="${board.title}"
+                th:href="@{/board/view(id=${board.id})}"
+                >제목입니다</a
+              >
+            </td>
+          </tr>
+          <tr th:each="board : ${list}">
+            <td class="body number" th:text="${board.id}">2</td>
+            <td class="body title">
+              <a
+                th:text="${board.title}"
+                th:href="@{/board/view(id=${board.id})}"
+                >제목입니다</a
+              >
+            </td>
+          </tr>
+          <tr th:each="board : ${list}">
+            <td class="body number" th:text="${board.id}">2</td>
             <td class="body title">
               <a
                 th:text="${board.title}"
@@ -269,6 +289,16 @@
         searchInput.value = "";
       }
     }
+
+    function overwriteNumbers() {
+      const numbers = document.querySelectorAll(".body.number");
+
+      for (let i = 1; i <= numbers.length; i++) {
+        numbers[numbers.length - i].innerText = i;
+      }
+    }
+
+    overwriteNumbers();
 
     const form = document.querySelector(".search");
     form.addEventListener("submit", searchInputValidation);
