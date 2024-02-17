@@ -22,25 +22,66 @@
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        position: relative;
       }
 
-      .return-icon {
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .icon {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 35px;
         height: 35px;
-        border: solid 1.3px #d3d3d3;
         cursor: pointer;
       }
 
-      .return-icon:hover {
+      .icon:hover {
         background-color: #f9f9f9;
       }
 
-      .return-icon > img {
+      .icon > img {
         width: 18px;
         height: 18px;
+      }
+
+      .menu-box {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        width: 70px;
+        height: 70px;
+        background-color: #fff;
+        border: solid 1.3px #f4f4f4;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+        position: absolute;
+        top: 55px;
+        right: 20px;
+      }
+
+      .menu-box_open {
+        display: flex;
+      }
+
+      .menu-box > a {
+        color: #333333;
+        font-size: 15px;
+        font-weight: 500;
+
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .menu-box > a:hover {
+        text-decoration: underline;
       }
 
       .title {
@@ -62,39 +103,26 @@
       .content {
         margin: 16px 0 30px 0;
       }
-
-      .btns {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        margin-top 10px;
-      }
-
-      .btn {
-        height: 36px;
-        background-color: #4caf50;
-        font-size: 15px;
-        color: #fff;
-        text-align: center;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-      }
-
-      .btn:hover {
-        background-color: #45a049;
-      }
     </style>
   </head>
   <body>
     <div class="layout">
-      <a class="return-icon" th:href="@{/board/list}">
-        <img
-          src="https://github.com/soojinpark99/memoBoard/assets/154590790/844136fb-12ca-4717-a6f1-c75d608a7281"
-        />
-      </a>
+      <div class="nav-bar">
+        <a class="return icon" th:href="@{/board/list}">
+          <img
+            src="https://github.com/soojinpark99/memoBoard/assets/154590790/844136fb-12ca-4717-a6f1-c75d608a7281"
+          />
+        </a>
+        <div class="menu icon">
+          <img
+            src="https://github.com/soojinpark99/memoBoard/assets/154590790/9c5256c9-1b10-47fc-bbc7-8a347a27ad67"
+          />
+        </div>
+      </div>
+      <div class="menu-box">
+        <a th:href="@{/board/modify/{id}(id = ${board.id})}">수정</a>
+        <a th:href="@{/board/delete(id= ${board.id})}">삭제</a>
+      </div>
       <h1 th:text="${board.title}" class="title">제목입니다.</h1>
       <div class="date-div">
         <span
@@ -110,17 +138,19 @@
           alt="이미지"
         />
       </div>
-      <p class="content" th:text="${board.content}">
-        내용이 들어갈 부분입니다.
-      </p>
-      <div class="btns">
-        <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"
-          >수정</a
-        >
-        <a th:href="@{/board/delete(id= ${board.id})}" class="delete btn"
-          >삭제</a
-        >
-      </div>
+      <p class="content" th:text="${board.content}">내용입니다.</p>
     </div>
   </body>
+  <script>
+    function handleMenuBox() {
+      const menuBox = document.querySelector(".menu-box");
+      const menuIcon = document.querySelector(".menu.icon");
+
+      menuIcon.addEventListener("click", () => {
+        menuBox.classList.toggle("menu-box_open");
+      });
+    }
+
+    handleMenuBox();
+  </script>
 </html>
