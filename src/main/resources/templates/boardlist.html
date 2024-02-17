@@ -1,276 +1,290 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>게시글 리스트 페이지</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>게시글 리스트 페이지</title>
+</head>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 15px;
-      background-color: #f4f4f4;
-    }
-    .layout {
-      width: 340px;
-      margin: 30px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    background-color: #f4f4f4;
+  }
+  .layout {
+    width: 340px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
-    .write-btn_div {
-      display: flex;
-      justify-content: flex-end;
-    }
+  .write-btn_div {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    .write-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
+  .write-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 
-      width: 70px;
-      height: 35px;
-      color: #333333;
-      font-size: 13px;
-      font-weight: 500;
-      border: solid 1.3px #d3d3d3;
+    width: 70px;
+    height: 35px;
+    color: #333333;
+    font-size: 13px;
+    font-weight: 500;
+    border: solid 1.3px #d3d3d3;
 
-      text-decoration: none;
-      cursor: pointer;
-    }
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-    .write-btn > img {
-      width: 15px;
-    }
+  .write-btn > img {
+    width: 15px;
+  }
 
-    .write-btn:hover {
-      background-color: #f9f9f9;
-    }
+  .write-btn:hover {
+    background-color: #f9f9f9;
+  }
 
-    .write-btn_div {
-      display: flex;
-      justify-content: flex-end;
-    }
+  .write-btn_div {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    .write-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
+  .write-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 
-      width: 70px;
-      height: 35px;
-      color: #333333;
-      font-size: 13px;
-      font-weight: 500;
-      border: solid 1.3px #d3d3d3;
+    width: 70px;
+    height: 35px;
+    color: #333333;
+    font-size: 13px;
+    font-weight: 500;
+    border: solid 1.3px #d3d3d3;
 
-      text-decoration: none;
-      cursor: pointer;
-    }
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-    .write-btn > img {
-      width: 15px;
-    }
+  .write-btn > img {
+    width: 15px;
+  }
 
-    .write-btn > img {
-      width: 15px;
-    }
+  .write-btn > img {
+    width: 15px;
+  }
 
-    .write-btn:hover {
-      background-color: #f9f9f9;
-    }
+  .write-btn:hover {
+    background-color: #f9f9f9;
+  }
 
-    table {
-      width: 100%;
-      color: #4e4e4e;
-    }
+  table {
+    width: 100%;
+    color: #4e4e4e;
+  }
 
-    thead > tr {
-      border-bottom: 1px solid #999999;
-      padding: 10px;
-    }
+  thead > tr {
+    border-bottom: 1px solid #999999;
+    padding: 10px;
+  }
 
-    tbody > tr {
-      border-bottom: 1px solid #f2f2f2;
-      padding: 7px;
-    }
+  tbody > tr {
+    border-bottom: 1px solid #f2f2f2;
+    padding: 7px;
+  }
 
-    tr {
-      display: flex;
-      gap: 10px;
-    }
+  tr {
+    display: flex;
+    gap: 10px;
+  }
 
-    .number {
-      width: 40px;
-      text-align: center;
-    }
+  .number {
+    width: 40px;
+    text-align: center;
+  }
 
-    .title {
-      width: 100%;
-    }
+  .title {
+    width: 100%;
+  }
 
-    .body.title > a {
-      color: #4e4e4e;
-      text-decoration: none;
-      cursor: pointer;
-    }
+  .body.title > a {
+    color: #4e4e4e;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-    .body.title > a:hover {
-      text-decoration: underline;
-    }
+  .body.title > a:hover {
+    text-decoration: underline;
+  }
 
-    .page-block {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
+  .page-block {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
 
-    .page-block_num {
-      color: #5f6367;
-      cursor: pointer;
-      text-decoration: none;
-    }
+  .page-block_num {
+    color: #5f6367;
+    cursor: pointer;
+    text-decoration: none;
+  }
 
-    .page-block_num:hover {
-      text-decoration: underline;
-    }
+  .page-block_num:hover {
+    text-decoration: underline;
+  }
 
-    .search {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      margin-top: 10px;
-    }
+  .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
 
-    .search input {
-      padding: 3px;
-      width: 200px;
-      height: 30px;
-    }
+  .search input {
+    padding: 3px;
+    width: 200px;
+    height: 30px;
+  }
 
-    .submit-btn {
-      width: 40px;
-      height: 30px;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  .submit-btn {
+    width: 40px;
+    height: 30px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 
-    .submit-btn:hover {
-      background-color: #45a049;
-    }
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
 
-    .copyright {
-      color: #d3d3d3;
-      text-decoration: none;
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-    }
+  .copyright {
+    color: #d3d3d3;
+    text-decoration: none;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
 
-    .copyright {
-      color: #d3d3d3;
-      text-decoration: none;
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-    }
-  </style>
-  <body>
-    <div class="layout">
-      <div class="write-btn_div">
-        <a class="write-btn" th:href="@{/board/write}">
-          <img
-            src="https://github.com/soojinpark99/memoBoard/assets/154590790/fca6f8d0-dfee-4dfd-a4eb-006604b9b3d2"
-          />
-          글쓰기</a
-        >
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th class="head number">번호</th>
-            <th class="head title">제목</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">1</td>
-            <td class="body title">
-              <a
+  .copyright {
+    color: #d3d3d3;
+    text-decoration: none;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+</style>
+<body>
+<div class="layout">
+  <div class="write-btn_div">
+    <a class="write-btn" th:href="@{/board/write}">
+      <img
+              src="https://github.com/soojinpark99/memoBoard/assets/154590790/fca6f8d0-dfee-4dfd-a4eb-006604b9b3d2"
+      />
+      글쓰기</a
+    >
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th class="head number">번호</th>
+      <th class="head title">제목</th>
+      <th>작성일자</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board : ${list}">
+      <td class="body number" th:text="${board.id}">3</td>
+      <td class="body title">
+        <a
                 th:text="${board.title}"
                 th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="page-block">
-        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-          <a
-            class="page-block_num"
-            th:if="${page != nowPage}"
-            th:href="@{/board/list(page = ${page - 1},
+        >제목입니다</a
+        >
+      </td>
+      <td th:text="${board.localDateTime.toLocalDate()}+' '+
+            ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}">날짜</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="page-block">
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+      <a
+              class="page-block_num"
+              th:if="${page != nowPage}"
+              th:href="@{/board/list(page = ${page - 1},
         searchKeyword = ${param.searchKeyword})}"
-            th:text="${page}"
-          ></a>
-          <strong
-            th:if="${page == nowPage}"
-            th:text="${page}"
-            style="text-decoration: underline"
-          ></strong>
-        </th:block>
-      </div>
-      <form
-        class="search"
-        autocomplete="off"
-        th:action="@{/board/list}"
-        method="get"
-      >
-        <label>
-          <input
-            type="text"
-            class="search-input"
-            name="searchKeyword"
-            placeholder="검색어를 입력하세요."
-          />
-        </label>
-        <button class="submit-btn" type="submit">검색</button>
-      </form>
-    </div>
-    <a
-      class="copyright"
-      href="https://www.flaticon.com/kr/free-icons/"
-      title="연필 아이콘"
-      >연필 아이콘 제작자: Pixel perfect - Flaticon</a
-    >
-  </body>
-  <script>
-    function searchInputValidation(e) {
-      const searchInput = document.querySelector(".search-input");
-      if (searchInput.value.trim() === "") {
-        e.preventDefault();
-        alert("검색어를 입력하세요.");
-        searchInput.value = "";
-      }
+              th:text="${page}"
+      ></a>
+      <strong
+              th:if="${page == nowPage}"
+              th:text="${page}"
+              style="text-decoration: underline"
+      ></strong>
+    </th:block>
+  </div>
+  <form
+          class="search"
+          autocomplete="off"
+          th:action="@{/board/list}"
+          method="get"
+  >
+    <label>
+      <input
+              type="text"
+              class="search-input"
+              name="searchKeyword"
+              placeholder="검색어를 입력하세요."
+      />
+    </label>
+    <button class="submit-btn" type="submit">검색</button>
+  </form>
+</div>
+<a
+        class="copyright"
+        href="https://www.flaticon.com/kr/free-icons/"
+        title="연필 아이콘"
+>연필 아이콘 제작자: Pixel perfect - Flaticon</a
+>
+</body>
+<script>
+  function searchInputValidation(e) {
+    const searchInput = document.querySelector(".search-input");
+    if (searchInput.value.trim() === "") {
+      e.preventDefault();
+      alert("검색어를 입력하세요.");
+      searchInput.value = "";
     }
+  }
 
-    const form = document.querySelector(".search");
-    form.addEventListener("submit", searchInputValidation);
-  </script>
+  function overwriteNumbers() {
+    const numbers = document.querySelectorAll(".body.number");
+
+    for (let i = 1; i <= numbers.length; i++) {
+      numbers[numbers.length - i].innerText = i;
+    }
+  }
+
+  overwriteNumbers();
+
+
+  const form = document.querySelector(".search");
+  form.addEventListener("submit", searchInputValidation);
+</script>
 </html>
