@@ -8,6 +8,7 @@
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
       body {
@@ -16,7 +17,7 @@
       }
 
       .layout {
-        width: 300px;
+        width: 340px;
         margin: 30px auto;
         background-color: #fff;
         padding: 20px;
@@ -64,6 +65,7 @@
       }
 
       .btn {
+        height: 36px;
         background-color: #4caf50;
         color: #fff;
         padding: 10px 15px;
@@ -77,10 +79,10 @@
       }
 
       .list.btn {
+        width: 90px;
         background-color: #2196f3;
         margin-left: auto;
         font-size: 13px;
-        width: 60px;
         text-decoration: none;
       }
 
@@ -120,103 +122,5 @@
         </div>
       </div>
     </form>
-
-    <script>
-      // 게시글 저장 함수
-      async function savePost() {
-        const title = document.getElementById("title").value;
-        const comments = document.getElementById("comments").value;
-        // 서버로 데이터 전송
-        const response = await fetch("/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title, comments }),
-        });
-
-        if (response.ok) {
-          console.log("게시글 저장 성공");
-          // 게시글 저장 후 목록 갱신
-          updatePostList();
-        } else {
-          console.error("게시글 저장 실패");
-        }
-      }
-
-      // 게시글 목록으로 이동 함수
-      function goToList() {
-        // 페이지 이동 로직 구현
-        window.location.href = "post-list.html";
-      }
-
-      // 게시글 수정 함수
-      function editPost(postId) {
-        // 구현 필요: 서버에서 postId에 해당하는 게시글 가져와서 수정 페이지로 이동
-        console.log("게시글 수정 - postId:", postId);
-      }
-
-      // 게시글 삭제 함수
-      async function deletePost(postId) {
-        // 서버에서 postId에 해당하는 게시글 삭제
-        const response = await fetch(`/delete/${postId}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          console.log("게시글 삭제 성공");
-          // 게시글 삭제 후 목록 갱신
-          updatePostList();
-        } else {
-          console.error("게시글 삭제 실패");
-        }
-      }
-
-      // 게시글 목록 갱신 함수
-      async function updatePostList() {
-        // 서버에서 게시글 목록을 가져와서 동적으로 표시
-        const response = await fetch("/get-posts");
-        const posts = await response.json();
-
-        const postListDiv = document.getElementById("postList");
-        postListDiv.innerHTML = ""; // 목록 초기화
-
-        posts.forEach((post) => {
-          const postItem = document.createElement("div");
-          postItem.className = "post-item";
-
-          const titleElement = document.createElement("h3");
-          titleElement.textContent = post.title;
-
-          const commentsElement = document.createElement("p");
-          commentsElement.textContent = post.comments;
-
-          const actionsDiv = document.createElement("div");
-          actionsDiv.className = "post-actions";
-
-          const editButton = document.createElement("button");
-          editButton.className = "edit-btn";
-          editButton.textContent = "수정";
-          editButton.addEventListener("click", () => editPost(post.id));
-
-          const deleteButton = document.createElement("button");
-          deleteButton.className = "delete-btn";
-          deleteButton.textContent = "삭제";
-          deleteButton.addEventListener("click", () => deletePost(post.id));
-
-          actionsDiv.appendChild(editButton);
-          actionsDiv.appendChild(deleteButton);
-
-          postItem.appendChild(titleElement);
-          postItem.appendChild(commentsElement);
-          postItem.appendChild(actionsDiv);
-
-          postListDiv.appendChild(postItem);
-        });
-      }
-
-      // 페이지 로드 시 게시글 목록 갱신
-      updatePostList();
-    </script>
   </body>
 </html>

@@ -6,9 +6,7 @@
   </head>
 
   <style>
-    *,
-    *::before,
-    *::after {
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -211,7 +209,27 @@
         </thead>
         <tbody>
           <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">1</td>
+            <td class="body number" th:text="${board.id}">3</td>
+            <td class="body title">
+              <a
+                th:text="${board.title}"
+                th:href="@{/board/view(id=${board.id})}"
+                >제목입니다</a
+              >
+            </td>
+          </tr>
+          <tr th:each="board : ${list}">
+            <td class="body number" th:text="${board.id}">2</td>
+            <td class="body title">
+              <a
+                th:text="${board.title}"
+                th:href="@{/board/view(id=${board.id})}"
+                >제목입니다</a
+              >
+            </td>
+          </tr>
+          <tr th:each="board : ${list}">
+            <td class="body number" th:text="${board.id}">2</td>
             <td class="body title">
               <a
                 th:text="${board.title}"
@@ -247,6 +265,7 @@
         <label>
           <input
             type="text"
+            class="search-input"
             name="searchKeyword"
             placeholder="검색어를 입력하세요."
           />
@@ -261,4 +280,27 @@
       >연필 아이콘 제작자: Pixel perfect - Flaticon</a
     >
   </body>
+  <script>
+    function searchInputValidation(e) {
+      const searchInput = document.querySelector(".search-input");
+      if (searchInput.value.trim() === "") {
+        e.preventDefault();
+        alert("검색어를 입력하세요.");
+        searchInput.value = "";
+      }
+    }
+
+    function overwriteNumbers() {
+      const numbers = document.querySelectorAll(".body.number");
+
+      for (let i = 1; i <= numbers.length; i++) {
+        numbers[numbers.length - i].innerText = i;
+      }
+    }
+
+    overwriteNumbers();
+
+    const form = document.querySelector(".search");
+    form.addEventListener("submit", searchInputValidation);
+  </script>
 </html>
