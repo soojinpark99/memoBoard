@@ -18,7 +18,7 @@
       background-color: #f4f4f4;
     }
     .layout {
-      width: 340px;
+      width: 500px;
       margin: 30px auto;
       background-color: #fff;
       padding: 20px;
@@ -93,6 +93,7 @@
     table {
       width: 100%;
       color: #4e4e4e;
+      margin-top: 10px;
     }
 
     thead > tr {
@@ -116,7 +117,13 @@
     }
 
     .title {
-      width: 100%;
+      flex-grow: 1;
+      padding: 0 5px;
+    }
+
+    .date {
+      width: 130px;
+      text-align: center;
     }
 
     .body.title > a {
@@ -156,7 +163,7 @@
 
     .search input {
       padding: 3px;
-      width: 200px;
+      width: 230px;
       height: 30px;
     }
 
@@ -205,23 +212,25 @@
           <tr>
             <th class="head number">번호</th>
             <th class="head title">제목</th>
-            <th>작성일자</th>
+            <th class="head date">작성일자</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">3</td>
+            <td class="body number" th:text="${board.id}">1</td>
             <td class="body title">
               <a
                 th:text="${board.title}"
                 th:href="@{/board/view(id=${board.id})}"
-              ></a>
+                >제목입니다.</a
+              >
             </td>
             <td
+              class="body date"
               th:text="${board.localDateTime.toLocalDate()}+' '+
             ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}"
             >
-              날짜
+              2024/02/07 07:02
             </td>
           </tr>
         </tbody>

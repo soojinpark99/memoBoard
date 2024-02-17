@@ -24,9 +24,34 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
 
+      .return-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border: solid 1.3px #d3d3d3;
+        cursor: pointer;
+      }
+
+      .return-icon:hover {
+        background-color: #f9f9f9;
+      }
+
+      .return-icon > img {
+        width: 18px;
+        height: 18px;
+      }
+
       .title {
         font-size: 20px;
-        margin: 16px 0;
+        margin: 16px 0 7px 0;
+      }
+
+      .date-div {
+        color: #b1b1b1;
+        font-size: 14px;
+        margin-bottom: 10px;
       }
 
       img {
@@ -42,7 +67,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        margin-top: 10px;
+        margin-top 10px;
       }
 
       .btn {
@@ -65,13 +90,26 @@
   </head>
   <body>
     <div class="layout">
-      <a th:href="@{/board/list}"> <- </a>
+      <a class="return-icon" th:href="@{/board/list}">
+        <img
+          src="https://github.com/soojinpark99/memoBoard/assets/154590790/844136fb-12ca-4717-a6f1-c75d608a7281"
+        />
+      </a>
       <h1 th:text="${board.title}" class="title">제목입니다.</h1>
-      작성일자 : <p th:text="${board.localDateTime.toLocalDate()}+' '+
-            ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}">날짜</p>
-      <img th:unless="${base64Image}==''"
-        th:src="'data:image;base64,' + ${base64Image}"
-        alt="이미지" />
+      <div class="date-div">
+        <span
+          th:text="${board.localDateTime.toLocalDate()}+' '+
+            ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}"
+          >2024/02/17 17:42</span
+        >
+      </div>
+      <div>
+        <img
+          th:unless="${base64Image}==''"
+          th:src="'data:image;base64,' + ${base64Image}"
+          alt="이미지"
+        />
+      </div>
       <p class="content" th:text="${board.content}">
         내용이 들어갈 부분입니다.
       </p>
