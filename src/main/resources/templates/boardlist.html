@@ -215,8 +215,7 @@
               <a
                 th:text="${board.title}"
                 th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
+              ></a>
             </td>
             <td th:text="${board.localDateTime.toLocalDate()}+' '+
             ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}">날짜</td>
@@ -229,7 +228,7 @@
             class="page-block_num"
             th:if="${page != nowPage}"
             th:href="@{/board/list(page = ${page - 1},
-        searchKeyword = ${param.searchKeyword})}"
+            searchKeyword = ${param.searchKeyword})}"
             th:text="${page}"
           ></a>
           <strong
@@ -263,7 +262,7 @@
       >연필 아이콘 제작자: Pixel perfect - Flaticon</a
     >
   </body>
-  <script>
+  <script th:inline="javascript">
     function searchInputValidation(e) {
       const searchInput = document.querySelector(".search-input");
       if (searchInput.value.trim() === "") {
@@ -275,15 +274,15 @@
 
     function overwriteNumbers() {
       const numbers = document.querySelectorAll(".body.number");
+      const lastPage = [[${lastPage}]]
+      const nowPage = [[${nowPage}]]
 
       for (let i = 1; i <= numbers.length; i++) {
-        numbers[numbers.length - i].innerText = i;
+        numbers[numbers.length - i].innerText = i + (lastPage - nowPage) * 10;
       }
     }
 
-    overwriteNumbers();
-
-
+    overwriteNumbers()
     const form = document.querySelector(".search");
     form.addEventListener("submit", searchInputValidation);
   </script>
