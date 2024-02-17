@@ -259,7 +259,7 @@
       >연필 아이콘 제작자: Pixel perfect - Flaticon</a
     >
   </body>
-  <script th:inline="javascript">
+  <script>
     function searchInputValidation(e) {
       const searchInput = document.querySelector(".search-input");
       if (searchInput.value.trim() === "") {
@@ -268,18 +268,6 @@
         searchInput.value = "";
       }
     }
-
-    function overwriteNumbers() {
-      const numbers = document.querySelectorAll(".body.number");
-      const lastPage = [[${lastPage}]]
-      const nowPage = [[${nowPage}]]
-
-      for (let i = 1; i <= numbers.length; i++) {
-        numbers[numbers.length - i].innerText = i + (lastPage - nowPage) * 10;
-      }
-    }
-
-    overwriteNumbers();
 
     const form = document.querySelector(".search");
     form.addEventListener("submit", searchInputValidation);
