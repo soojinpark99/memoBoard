@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 
@@ -31,6 +33,7 @@ public class Boardcontroller {
 
     @PostMapping("/board/writepro")
     public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) {
+
 
         try {
             // 이미지 파일을 byte 배열로 변환하여 엔티티에 저장

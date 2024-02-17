@@ -65,16 +65,12 @@
   </head>
   <body>
     <div class="layout">
+      <a th:href="@{/board/list}"> <- </a>
       <h1 th:text="${board.title}" class="title">제목입니다.</h1>
-      <img
-        src="https://mblogthumb-phinf.pstatic.net/MjAyMjAzMjlfMjQx/MDAxNjQ4NTI5ODA4NTYx.Yykw4ZXeJ8_hRbEPZ3ReBNyDofvU4vY6nK04Qm89rJUg.MDoXZTSCIVqoV7aA_X-vSREIP1ns5TN0pUGQcmpBVt4g.JPEG.38qudehd/IMG_8696.JPG?type=w800"
-        {%
-        comment
-        %}
-        th:src="'data:image/jpeg;base64,' + ${base64Image}"
-        {%
-        endcomment
-        %}
+      작성일자 : <p th:text="${board.localDateTime.toLocalDate()}+' '+
+            ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}">날짜</p>
+      <img th:unless="${base64Image}==''"
+        th:src="'data:image;base64,' + ${base64Image}"
         alt="이미지"
       />
       <p class="content" th:text="${board.content}">

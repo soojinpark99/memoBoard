@@ -205,6 +205,7 @@
           <tr>
             <th class="head number">번호</th>
             <th class="head title">제목</th>
+            <th>작성일자</th>
           </tr>
         </thead>
         <tbody>
@@ -217,26 +218,8 @@
                 >제목입니다</a
               >
             </td>
-          </tr>
-          <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">2</td>
-            <td class="body title">
-              <a
-                th:text="${board.title}"
-                th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
-            </td>
-          </tr>
-          <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">2</td>
-            <td class="body title">
-              <a
-                th:text="${board.title}"
-                th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
-            </td>
+            <td th:text="${board.localDateTime.toLocalDate()}+' '+
+            ${board.localDateTime.getHour()}+':'+${board.localDateTime.getMinute()}">날짜</td>
           </tr>
         </tbody>
       </table>
@@ -299,6 +282,7 @@
     }
 
     overwriteNumbers();
+
 
     const form = document.querySelector(".search");
     form.addEventListener("submit", searchInputValidation);
