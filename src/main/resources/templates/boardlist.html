@@ -209,33 +209,12 @@
         </thead>
         <tbody>
           <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">3</td>
+            <td class="body number" th:text="${board.id}"></td>
             <td class="body title">
               <a
                 th:text="${board.title}"
                 th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
-            </td>
-          </tr>
-          <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">2</td>
-            <td class="body title">
-              <a
-                th:text="${board.title}"
-                th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
-            </td>
-          </tr>
-          <tr th:each="board : ${list}">
-            <td class="body number" th:text="${board.id}">2</td>
-            <td class="body title">
-              <a
-                th:text="${board.title}"
-                th:href="@{/board/view(id=${board.id})}"
-                >제목입니다</a
-              >
+              ></a>
             </td>
           </tr>
         </tbody>
@@ -246,7 +225,7 @@
             class="page-block_num"
             th:if="${page != nowPage}"
             th:href="@{/board/list(page = ${page - 1},
-        searchKeyword = ${param.searchKeyword})}"
+            searchKeyword = ${param.searchKeyword})}"
             th:text="${page}"
           ></a>
           <strong
@@ -280,7 +259,7 @@
       >연필 아이콘 제작자: Pixel perfect - Flaticon</a
     >
   </body>
-  <script>
+  <script th:inline="javascript">
     function searchInputValidation(e) {
       const searchInput = document.querySelector(".search-input");
       if (searchInput.value.trim() === "") {
@@ -292,9 +271,11 @@
 
     function overwriteNumbers() {
       const numbers = document.querySelectorAll(".body.number");
+      const pageBlocks = document.querySelectorAll(".page-block_num");
+      const nowPage = [[${nowPage}]]
 
       for (let i = 1; i <= numbers.length; i++) {
-        numbers[numbers.length - i].innerText = i;
+        numbers[numbers.length - i].innerText = i + (pageBlocks.length - nowPage) * 10;
       }
     }
 
