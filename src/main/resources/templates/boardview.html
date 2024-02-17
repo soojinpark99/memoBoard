@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <title>게시글 상세 페이지</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
+      * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
 
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+
       .layout {
-        width: 300px;
+        width: 340px;
         margin: 30px auto;
         background-color: #fff;
         padding: 20px;
@@ -22,28 +26,16 @@
 
       .title {
         font-size: 20px;
-      }
-      .comments {
-        font-size: 15px;
-        height: 300px;
-        padding: 15px 0;
-        margin: 0;
+        margin: 16px 0;
       }
 
-      .download {
-        cursor: pointer;
-        display: inline;
-        text-decoration: none;
-        font-size: 14px;
-        color: #000000;
+      img {
+        object-fit: contain;
+        width: 300px;
       }
 
-      .download:hover {
-        text-decoration: underline;
-      }
-
-      .download > img {
-        width: 13px;
+      .content {
+        margin: 16px 0 30px 0;
       }
 
       .btns {
@@ -54,10 +46,11 @@
       }
 
       .btn {
-        width: 30px;
+        height: 36px;
         background-color: #4caf50;
         font-size: 15px;
         color: #fff;
+        text-align: center;
         padding: 10px 15px;
         border: none;
         border-radius: 4px;
@@ -73,13 +66,20 @@
   <body>
     <div class="layout">
       <h1 th:text="${board.title}" class="title">제목입니다.</h1>
-      <p th:text="${board.content}" class="coments">
+      <img
+        src="https://mblogthumb-phinf.pstatic.net/MjAyMjAzMjlfMjQx/MDAxNjQ4NTI5ODA4NTYx.Yykw4ZXeJ8_hRbEPZ3ReBNyDofvU4vY6nK04Qm89rJUg.MDoXZTSCIVqoV7aA_X-vSREIP1ns5TN0pUGQcmpBVt4g.JPEG.38qudehd/IMG_8696.JPG?type=w800"
+        {%
+        comment
+        %}
+        th:src="'data:image/jpeg;base64,' + ${base64Image}"
+        {%
+        endcomment
+        %}
+        alt="이미지"
+      />
+      <p class="content" th:text="${board.content}">
         내용이 들어갈 부분입니다.
       </p>
-      <img th:if="${base64Image!=null}" th:src="'data:image;base64,' + ${base64Image}"
-           alt="이미지"
-          width="300"
-          height="300"/>
       <div class="btns">
         <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="modify btn"
           >수정</a
