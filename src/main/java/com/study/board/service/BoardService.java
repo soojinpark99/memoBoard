@@ -26,7 +26,6 @@ public class BoardService {
     public void saveImg(Board board, MultipartFile file) throws Exception {
         String projectPath = System.getProperty("user.dir") + "/src/main/webapp/files";
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename(); // 파일 이름을 랜덤으로 생성
-        String filePath = Paths.get(projectPath, fileName).toString(); // 파일 경로 설정
 
         // 이미지 파일을 디스크에 저장
         Files.copy(file.getInputStream(), Paths.get(projectPath).resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
